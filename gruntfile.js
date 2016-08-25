@@ -10,27 +10,34 @@ module.exports = function(grunt) {
                 ptr: false
             },
             dist: {
-                src: ['dist/**/*.js']
-            },
-            source: {
                 src: ['src/**/*.js']
             }
         },
-        concat: {
-            options: {
-                seperator: ';',
-            },
-            default: {
-                src: ['src/**/*.js'],
-                dest: 'dist/app.js'
+        copy: {
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: 'src/**',
+                        dest: 'dist/',
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/[PATH]/, '.');
+                        }
+                    }
+                ]
             }
+        },
+        clean: {
+            default: ['dist']
         }
     });
 
     grunt.loadNpmTasks('grunt-screeps');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['concat']);
-    grunt.registerTask('uploadMin', ['concat', 'screeps']);
-    grunt.registerTask('uploadFull', ['screeps']);
+    grunt.registerTask('default', ['screeps']);
+    grunt.registerTask('flatten', ['copy']);
 }

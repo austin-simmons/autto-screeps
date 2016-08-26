@@ -3,7 +3,7 @@ let values = {
     minUpgraders: 4,
     minBuilders: 3,
     minRepairers: 3,
-    minWallRepairers: 0
+    minWallRepairers: 2
 }
 
 module.exports = values

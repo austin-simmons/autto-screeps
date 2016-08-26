@@ -40,7 +40,7 @@ module.exports.loop = function() {
     let name;
 
     // check if we need to spawn more creeps
-    if(numHarvesters < values.minHarvesters) {
+    if(numHarvesters <= values.minHarvesters) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'harvester');
 
         if(name == ERR_NOT_ENOUGH_ENERGY && numHarvesters == 0) {
@@ -49,13 +49,13 @@ module.exports.loop = function() {
                 'harvester'
             );
         }
-    } else if(numUpgraders < values.minUpgraders) {
+    } else if(numUpgraders <= values.minUpgraders) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'upgrader');
-    } else if(numBuilders < values.minBuilders) {
+    } else if(numBuilders <= values.minBuilders) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
-    } else if(numRepairers < values.minRepairers) {
+    } else if(numRepairers <= values.minRepairers) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'repairer');
-    } else if(numWallRepairers < values.minWallRepairers) {
+    } else if(numWallRepairers <= values.minWallRepairers) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'wallRepairer');
     }
 

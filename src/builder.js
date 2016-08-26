@@ -20,7 +20,7 @@ let builder = {
                 }
             }
             else {
-                roleUpgrader.run(creep);
+                upgrader.run(creep);
             }
         }
         else {

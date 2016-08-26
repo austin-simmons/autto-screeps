@@ -1,8 +1,8 @@
 let values = {
     minHarvesters: 4,
-    minUpgraders: 3,
-    minBuilders: 2,
-    minRepairers: 2,
+    minUpgraders: 4,
+    minBuilders: 3,
+    minRepairers: 3,
     minWallRepairers: 0
 }
 

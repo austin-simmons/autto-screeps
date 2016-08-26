@@ -25,7 +25,7 @@ let harvester = {
             });
 
             if(structure != undefined) {
-                if(creep.transfer(structure) == ERR_NOT_IN_RANGE) {
+                if(creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(structure);
                 }
             } else {

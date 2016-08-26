@@ -1,3 +1,4 @@
+require('./spawner')();
 let values = require('./values');
 let harvester = require('./harvester');
 let upgrader = require('./upgrader');
@@ -31,33 +32,27 @@ module.exports.loop = function() {
     let numUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
     let numBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
     let numRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
+    let energy = Game.spawns.Spawn1.room.energyCapacityAvailable;
     let name;
 
     // check if we need to spawn more creeps
     if(numHarvesters < values.minHarvesters) {
-        name = Game.spawns.Spawn1.createCreep(
-            [WORK, WORK, CARRY, MOVE],
-            undefined,
-            { role: 'harvester', working: false }
-        );
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'harvester');
+
+        if(name == ERR_NOT_ENOUGH_ENERGY && numHarvesters == 0) {
+            name = Game.spawns.Spawn1.createCustomCreep(
+                Game.spawns.Spawn1.room.energyAvailable,
+                'harvester'
+            );
+        }
     } else if(numUpgraders < values.minUpgraders) {
-        name = Game.spawns.Spawn1.createCreep(
-            [WORK,WORK,CARRY,MOVE],
-            undefined,
-            { role: 'upgrader', working: false }
-        );
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'upgrader');
     } else if(numBuilders < values.minBuilders) {
-        name = Game.spawns.Spawn1.createCreep(
-            [WORK,WORK,CARRY,MOVE],
-            undefined,
-            { role: 'builder', working: false}
-        );
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     } else if(numRepairers < values.minRepairers) {
-        name = Game.spawns.Spawn1.createCreep(
-            [WORK,WORK,CARRY,MOVE],
-            undefined,
-            { role: repairer, working: false}
-        );
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'repairer');
+    } else {
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     }
 
     if(!(name < 0)) {

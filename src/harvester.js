@@ -4,7 +4,7 @@ let harvester = {
     /**
      * @param {Creep} creep
      */
-    run(creep) {
+    run: (creep) => {
         // if creep is going back to spawn but has no energy
         if(creep.memory.working == true && creep.carry.energy == 0) {
             creep.memory.working = false;

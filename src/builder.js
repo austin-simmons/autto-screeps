@@ -1,6 +1,5 @@
 let upgrader = require('./upgrader');
 
-// TODO: fix builders. Currently they just spawn and sit there.
 let builder = {
     /**
      * @param {Creep} creep
@@ -13,15 +12,21 @@ let builder = {
             creep.memory.working = true;
         }
 
-        // if there are available construction sites
-        if(creep.memory.working == true) {
-            let conSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-            if(conSite != undefined) {
-                if(creep.build(conSite) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(conSite);
+        if (creep.memory.working == true) {
+            let constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+            if (constructionSite != undefined) {
+                if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(constructionSite);
                 }
-            } else {
-                upgrader.run(creep);
+            }
+            else {
+                roleUpgrader.run(creep);
+            }
+        }
+        else {
+            let source = creep.pos.findClosestByPath(FIND_SOURCES);
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source);
             }
         }
     }

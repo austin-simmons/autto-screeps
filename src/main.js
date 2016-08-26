@@ -55,6 +55,17 @@ module.exports.loop = function() {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     }
 
+    let towers = Game.rooms['SIMULATION ROOM'].find(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_TOWER
+    });
+
+    for(let tower in towers) {
+        let target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if(target != undefined) {
+            tower.attack(target);
+        }
+    }
+
     if(!(name < 0)) {
         console.log(`Spawning creep: ${name}`);
     }

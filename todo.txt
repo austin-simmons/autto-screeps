@@ -1,0 +1,3 @@
+- unit tests
+- auto-spawn tower and extensions
+- cleanup gruntfile

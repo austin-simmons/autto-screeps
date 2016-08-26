@@ -2,6 +2,7 @@ let values = require('./values');
 let harvester = require('./harvester');
 let upgrader = require('./upgrader');
 let builder = require('./builder');
+let repairer = require('./repairer');
 
 module.exports.loop = function() {
     // cleanup memory object of dead creeps
@@ -21,12 +22,15 @@ module.exports.loop = function() {
             upgrader.run(creep);
         } else if(creep.memory.role == 'builder') {
             builder.run(creep);
+        } else if(creep.memory.role == 'repairer') {
+            repairer.run(creep);
         }
     }
 
     let numHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
     let numUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
     let numBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
+    let numRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
     let name;
 
     // check if we need to spawn more creeps
@@ -47,6 +51,12 @@ module.exports.loop = function() {
             [WORK,WORK,CARRY,MOVE],
             undefined,
             { role: 'builder', working: false}
+        );
+    } else if(numRepairers < values.minRepairers) {
+        name = Game.spawns.Spawn1.createCreep(
+            [WORK,WORK,CARRY,MOVE],
+            undefined,
+            { role: repairer, working: false}
         );
     }
 

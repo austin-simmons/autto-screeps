@@ -62,7 +62,7 @@ module.exports.loop = function() {
     }
 
     // need to change SIMULATIONROOM to actual room name
-    let towers = Game.rooms.SIMULATIONROOM.find(FIND_STRUCTURES, {
+    let towers = Game.rooms.E24S52.find(FIND_STRUCTURES, {
         filter: (s) => s.structureType == STRUCTURE_TOWER
     });
 

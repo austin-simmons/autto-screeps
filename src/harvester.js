@@ -16,10 +16,20 @@ let harvester = {
 
         // if creep is supposed to be bringing energy to spawn
         if(creep.memory.working == true) {
-            if(Game.spawns.Spawn1.energy == Game.spawns.Spawn1.energyCapacity) {
+            let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+                filter: (s) => (s.structureType == STRUCTURE_SPAWN
+                                || s.structureType == STRUCTURE_EXTENSION
+                                || s.structureType == STRUCTURE_TOWER)
+                                && s.energy < s.energyCapacity
+
+            });
+
+            if(structure != undefined) {
+                if(creep.transfer(structure) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(structure);
+                }
+            } else {
                 upgrader.run(creep);
-            } else if(creep.transfer(Game.spawns.Spawn1, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(Game.spawns.Spawn1);
             }
         }
         // if creep is supposed to be harvesting

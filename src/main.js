@@ -4,6 +4,7 @@ let harvester = require('./harvester');
 let upgrader = require('./upgrader');
 let builder = require('./builder');
 let repairer = require('./repairer');
+let wallRepairer = require('./wallRepairer');
 
 module.exports.loop = function() {
     // cleanup memory object of dead creeps
@@ -25,6 +26,8 @@ module.exports.loop = function() {
             builder.run(creep);
         } else if(creep.memory.role == 'repairer') {
             repairer.run(creep);
+        } else if(creep.memory.role == 'wallRepairer') {
+            wallRepairer.run(creep);
         }
     }
 
@@ -32,6 +35,7 @@ module.exports.loop = function() {
     let numUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
     let numBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
     let numRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
+    let numWallRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer');
     let energy = Game.spawns.Spawn1.room.energyCapacityAvailable;
     let name;
 
@@ -51,11 +55,14 @@ module.exports.loop = function() {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     } else if(numRepairers < values.minRepairers) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'repairer');
+    } else if(numWallRepairers < values.minWallRepairers) {
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'wallRepairer');
     } else {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     }
 
-    let towers = Game.rooms['SIMULATION ROOM'].find(FIND_STRUCTURES, {
+    // need to change SIMULATIONROOM to actual room name
+    let towers = Game.rooms.SIMULATIONROOM.find(FIND_STRUCTURES, {
         filter: (s) => s.structureType == STRUCTURE_TOWER
     });
 

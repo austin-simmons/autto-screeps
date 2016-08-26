@@ -1,9 +1,9 @@
-module.exports = () => {
+module.exports = function() {
     /**
      * @param {Number} energy
      * @param {String} roleName
      */
-    StructureSpawn.prototype.createCustomCreep = (energy, roleName) => {
+    StructureSpawn.prototype.createCustomCreep = function(energy, roleName) {
         let numberOfParts = Math.floor(energy / 200);
         let body = [];
         for (let i = 0; i < numberOfParts; i++) {

@@ -57,8 +57,6 @@ module.exports.loop = function() {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'repairer');
     } else if(numWallRepairers < values.minWallRepairers) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'wallRepairer');
-    } else {
-        name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
     }
 
     // need to change SIMULATIONROOM to actual room name

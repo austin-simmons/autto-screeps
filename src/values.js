@@ -1,8 +1,8 @@
 let values = {
-    minHarvesters: 3,
-    minUpgraders: 2,
-    minBuilders: 2,
-    minRepairers: 2
+    minHarvesters: 7,
+    minUpgraders: 4,
+    minBuilders: 4,
+    minRepairers: 4
 }
 
 module.exports = values

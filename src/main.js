@@ -63,13 +63,9 @@ module.exports.loop = function() {
     let towers = Game.rooms.E24S52.find(FIND_STRUCTURES, {
         filter: (s) => s.structureType == STRUCTURE_TOWER
     });
+    let hostiles = Game.rooms.E24S52.find(FIND_HOSTILE_CREEPS);
 
-    for(let tower in towers) {
-        let target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(target != undefined) {
-            tower.attack(target);
-        }
-    }
+    towers.forEach(tower => tower.attack(hostiles[0]));
 
     if(!(name < 0)) {
         console.log(`Spawning creep: ${name}`);

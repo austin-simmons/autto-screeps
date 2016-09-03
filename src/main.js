@@ -60,10 +60,10 @@ module.exports.loop = function() {
     }
 
     // need to change SIMULATIONROOM to actual room name
-    let towers = Game.rooms.E24S52.find(FIND_STRUCTURES, {
+    let towers = Game.rooms.W21S53.find(FIND_STRUCTURES, {
         filter: (s) => s.structureType == STRUCTURE_TOWER
     });
-    let hostiles = Game.rooms.E24S52.find(FIND_HOSTILE_CREEPS);
+    let hostiles = Game.rooms.W21S53.find(FIND_HOSTILE_CREEPS);
 
     towers.forEach(tower => tower.attack(hostiles[0]));
 
